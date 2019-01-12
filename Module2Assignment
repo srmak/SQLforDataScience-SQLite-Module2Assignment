@@ -1,0 +1,57 @@
+/* 1. Find all the tracks that have a length of 5,000,000 milliseconds or more. 
+      How many tracks are returned? */
+SELECT name, milliseconds
+FROM tracks
+WHERE milliseconds >= 5000000
+
+/* 2. Find all the invoices whose total is between $5 and $15 dollars. */
+SELECT count(invoiceID) AS totInvoices
+FROM invoices
+WHERE total BETWEEN 5 AND 15
+
+/* 3. Find all the customers from the following States: RJ, DF, AB, BC, CA, WA, NY. 
+      What company does Jack Smith work for? */
+SELECT firstName, lastName, Company
+FROM customers
+WHERE STATE IN ( "RJ","DF","AB","BC","CA","WA","NY")
+GROUP BY STATE
+
+/* 4. Find all the invoices for customer 56 and 58 where the total was between $1.00 and $5.00. 
+      What was the invoice date for invoice ID 315? */
+SELECT total, customerID, invoiceID, invoiceDate
+FROM invoices
+WHERE customerID IN (56, 58) AND total BETWEEN 1 AND 5
+ORDER BY total
+
+/* 5. Find all the tracks whose name starts with 'All' */
+SELECT name
+FROM tracks
+WHERE name LIKE 'Al%'
+
+/* 6. Find all the customer emails that start with "J" and are from gmail.com. 
+      Enter the one email address returned. */
+SELECT email
+FROM customers
+WHERE email LIKE 'J%@gmail.com'
+
+/* 7. Find all the invoices from the billing city Brasília, Edmonton, and Vancouver and sort in descending order by invoice ID. 
+      What is the total invoice amount of the first record returned? */
+SELECT invoiceID,total,BillingCity
+FROM invoices
+WHERE billingCity IN ('Brasília','Edmonton','Vancouver')
+ORDER BY invoiceID DESC
+
+/* 8. Show the number of orders placed by each customer and sort the result by the number of orders in descending order.
+What is the number of items bought for the 8th person on this list? */
+SELECT customerID, count(invoiceID) as orders
+FROM Invoices
+GROUP BY CustomerId
+ORDER BY orders desc
+
+/* 9. Find the albums with 12 or more tracks. */
+SELECT albumID,count(*) AS totTracks
+FROM tracks
+GROUP BY albumID
+HAVING totTracks >= 12
+
+--------------- the end -------------------
